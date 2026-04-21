@@ -1,0 +1,15 @@
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Warehouse
+metadata:
+  name: whispr-images
+  namespace: whispr
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  subscriptions:
+    - image:
+        repoURL: ghcr.io/whispr-messenger/auth-service/auth-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"

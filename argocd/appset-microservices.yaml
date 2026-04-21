@@ -1,0 +1,49 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: whispr-microservices
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - env: staging
+                  namespace: whispr-staging
+                - env: production
+                  namespace: whispr-prod
+          - list:
+              elements:
+                - service: auth-service
+  template:
+    metadata:
+      name: "{{ .service }}-{{ .env }}"
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/whispr-messenger/deploy.git
+        targetRevision: main
+        path: "overlays/{{ .env }}/{{ .service }}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ .namespace }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
