@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-service-config
+  labels:
+    app: auth-service
+    tier: backend
+    environment: staging
+  annotations:
+    description: "Non-sensitive configuration for Auth Service"
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  NODE_ENV: "staging"
+  HTTP_PORT: "3001"
+  GRPC_PORT: "50051"
+  DB_TYPE: "postgres"
+  DB_HOST: "postgresql.postgresql.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: auth_service_db
+  DB_MIGRATIONS_RUN: "false"
+  DB_SYNCHRONIZE: "false"
+  DB_LOGGING: "true"
+  REDIS_HOST: "redis.redis.svc.cluster.local"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  REDIS_MODE: "sentinel"
+  REDIS_SENTINELS: "redis.redis.svc.cluster.local:26379"
+  REDIS_MASTER_NAME: "mymaster"
+  USER_SERVICE_GRPC_URL: "user-service:50052"
+  MEDIA_SERVICE_GRPC_URL: "media-service:50053"
+  SWAGGER_ENABLED: "true"
+  ENABLE_CORS: "true"
+  HOT_RELOAD: "false"
+  DEMO_MODE: "true"
+  JWT_ISSUER: "https://auth.staging.whispr.epitech.beer"
+  JWT_AUDIENCE: "whispr-api"
