@@ -36,7 +36,6 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/redis_role_messaging_service_staging
-
 images:
 - name: ghcr.io/whispr-messenger/messaging-service/messaging-service
-  newTag: sha-9e08fa4
+  newTag: sha-71a9c45
