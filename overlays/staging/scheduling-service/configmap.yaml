@@ -12,7 +12,7 @@ data:
   LOG_LEVEL: "debug"
   DB_HOST: "postgresql.postgresql.svc.cluster.local"
   DB_PORT: "5432"
-  DB_NAME: "scheduling_service_db"
+  DB_NAME: "scheduling_service_staging_db"
   DB_TYPE: "postgres"
   HTTP_PORT: "3000"
   MESSAGING_SERVICE_HOST: "messaging-service.whispr-staging.svc.cluster.local"

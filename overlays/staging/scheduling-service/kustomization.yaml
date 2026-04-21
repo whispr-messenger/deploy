@@ -19,6 +19,15 @@ patches:
     - op: replace
       path: /spec/kubernetes/role
       value: scheduling-service-staging
+- target:
+    group: secrets.hashicorp.com
+    version: v1beta1
+    kind: VaultDynamicSecret
+    name: scheduling-service-db-creds
+  patch: |
+    - op: replace
+      path: /spec/path
+      value: creds/role_scheduling_service_staging
 
 images:
 - name: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
