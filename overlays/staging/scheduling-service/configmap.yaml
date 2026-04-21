@@ -6,7 +6,7 @@ metadata:
     app: scheduling-service
     environment: staging
 data:
-  NODE_ENV: "staging"
+  NODE_ENV: "production"
   PORT: "3000"
   GRPC_PORT: "3001"
   LOG_LEVEL: "debug"

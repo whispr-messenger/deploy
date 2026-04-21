@@ -6,6 +6,8 @@ resources:
   - vault-auth.yaml
   - vault-dynamic-secret.yaml
   - vault-public-jwt.yaml
+  - vault-redis-secret.yaml
+  - vault-sentinel-secret.yaml
   - deployment.yaml
   - service.yaml
 

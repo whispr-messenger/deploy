@@ -33,7 +33,7 @@ spec:
       containers:
         - name: migration
           image: ghcr.io/whispr-messenger/media-service/media-service
-          command: ["/nodejs/bin/node"]
+          command: ["node"]
           args:
             - node_modules/typeorm/cli.js
             - migration:run

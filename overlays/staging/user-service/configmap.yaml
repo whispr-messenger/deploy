@@ -7,7 +7,7 @@ metadata:
     tier: backend
     environment: staging
 data:
-  NODE_ENV: "staging"
+  NODE_ENV: "production"
   PORT: "3001"
   HTTP_PORT: "3001"
   GRPC_PORT: "50051"

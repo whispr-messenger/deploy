@@ -9,7 +9,7 @@ metadata:
   annotations:
     description: "Non-sensitive configuration for media Service"
 data:
-  NODE_ENV: "staging"
+  NODE_ENV: "production"
   HTTP_PORT: "3001"
   GRPC_PORT: "50051"
   DB_TYPE: "postgres"

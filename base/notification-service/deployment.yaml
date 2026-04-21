@@ -36,6 +36,16 @@ spec:
                   key: password
             - name: DATABASE_URL
               value: "postgresql://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
+            - name: REDIS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: notification-service-redis-secret
+                  key: username
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notification-service-redis-secret
+                  key: password
             - name: SECRET_KEY_BASE
               value: "5NCXsMTyEFqQRqsWs8N6sWoH06ki+bXmuXlFffKq8Q5Lhmo21mf2SDDjt1Uhqocw"
           envFrom:
@@ -45,6 +55,10 @@ spec:
                 name: notification-service-db-secret
             - secretRef:
                 name: notification-service-public-jwt-secret
+            - secretRef:
+                name: notification-service-redis-secret
+            - secretRef:
+                name: notification-service-redis-sentinel-secret
           resources:
             requests:
               cpu: "10m"
