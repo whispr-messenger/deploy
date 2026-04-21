@@ -27,7 +27,6 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/role_notification_service_staging
-
 images:
 - name: ghcr.io/whispr-messenger/notification-service
-  newTag: sha-c4b0322
+  newTag: sha-79d1fef
