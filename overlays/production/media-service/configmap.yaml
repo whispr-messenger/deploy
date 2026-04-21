@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: media-service-config
+  labels:
+    app: media-service
+    tier: backend
+    environment: production
+  annotations:
+    description: "Non-sensitive configuration for media Service"
+data:
+  NODE_ENV: "production"
+  HTTP_PORT: "3001"
+  GRPC_PORT: "50051"
+  DB_TYPE: "postgres"
+  DB_HOST: "postgresql.postgresql.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: media_service_db
+  DB_MIGRATIONS_RUN: "false"
+  DB_SYNCHRONIZE: "false"
+  DB_LOGGING: "false"
+  REDIS_HOST: "redis.redis.svc.cluster.local"
+  REDIS_PORT: "6379"
+  REDIS_DB: "4"
+  REDIS_MODE: "sentinel"
+  REDIS_SENTINELS: "redis.redis.svc.cluster.local:26379"
+  REDIS_MASTER_NAME: "mymaster"
+  USER_SERVICE_GRPC_URL: "user-service:50052"
+  MEDIA_SERVICE_GRPC_URL: "media-service:50053"
+  S3_REGION: "eu-west-1"
+  S3_ENDPOINT: "http://minio.minio.svc.cluster.local:9000"
+  S3_BUCKET: "whispr-media"
+  S3_FORCE_PATH_STYLE: "true"
+  JWT_JWKS_URL: "http://auth-service.whispr-prod.svc.cluster.local:3001/auth/.well-known/jwks.json"
+  SWAGGER_ENABLED: "true"
+  ENABLE_CORS: "true"
+  HOT_RELOAD: "false"
