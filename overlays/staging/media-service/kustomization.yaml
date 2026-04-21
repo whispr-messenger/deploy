@@ -8,7 +8,6 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
-
 patches:
 - target:
     group: secrets.hashicorp.com
@@ -37,7 +36,6 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/redis_role_media_service_staging
-
 images:
 - name: ghcr.io/whispr-messenger/media-service/media-service
-  newTag: sha-398b7b6
+  newTag: sha-6348d34
