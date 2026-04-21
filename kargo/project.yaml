@@ -7,7 +7,27 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 spec:
   promotionPolicies:
-    - stage: staging
+    - stage: auth-service-staging
       autoPromotionEnabled: true
-    - stage: production
+    - stage: auth-service-production
+      autoPromotionEnabled: false
+    - stage: media-service-staging
+      autoPromotionEnabled: true
+    - stage: media-service-production
+      autoPromotionEnabled: false
+    - stage: messaging-service-staging
+      autoPromotionEnabled: true
+    - stage: messaging-service-production
+      autoPromotionEnabled: false
+    - stage: notification-service-staging
+      autoPromotionEnabled: true
+    - stage: notification-service-production
+      autoPromotionEnabled: false
+    - stage: scheduling-service-staging
+      autoPromotionEnabled: true
+    - stage: scheduling-service-production
+      autoPromotionEnabled: false
+    - stage: user-service-staging
+      autoPromotionEnabled: true
+    - stage: user-service-production
       autoPromotionEnabled: false

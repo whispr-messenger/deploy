@@ -1,0 +1,102 @@
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Warehouse
+metadata:
+  name: media-service-images
+  namespace: whispr
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  subscriptions:
+    - image:
+        repoURL: ghcr.io/whispr-messenger/media-service/media-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: media-service-staging
+  namespace: whispr
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: media-service-images
+      sources:
+        direct: true
+  promotionTemplate:
+    spec:
+      steps:
+        - uses: git-clone
+          config:
+            repoURL: https://github.com/whispr-messenger/deploy.git
+            checkout:
+              - branch: main
+                path: ./deploy
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/media-service
+            images:
+              - image: ghcr.io/whispr-messenger/media-service/media-service
+        - uses: git-commit
+          config:
+            path: ./deploy
+            messageTemplate: |
+              chore(staging): promote media-service
+        - uses: git-push
+          config:
+            path: ./deploy
+        - uses: argocd-update
+          config:
+            apps:
+              - name: media-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: media-service-production
+  namespace: whispr
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: media-service-images
+      sources:
+        stages:
+          - media-service-staging
+  promotionTemplate:
+    spec:
+      steps:
+        - uses: git-clone
+          config:
+            repoURL: https://github.com/whispr-messenger/deploy.git
+            checkout:
+              - branch: main
+                path: ./deploy
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/media-service
+            images:
+              - image: ghcr.io/whispr-messenger/media-service/media-service
+        - uses: git-commit
+          config:
+            path: ./deploy
+            messageTemplate: |
+              chore(production): promote media-service
+        - uses: git-push
+          config:
+            path: ./deploy
+        - uses: argocd-update
+          config:
+            apps:
+              - name: media-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
