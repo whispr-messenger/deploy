@@ -27,11 +27,36 @@ spec:
             path: ./deploy/overlays/staging/auth-service
             images:
               - image: ghcr.io/whispr-messenger/auth-service/auth-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/media-service
+            images:
+              - image: ghcr.io/whispr-messenger/media-service/media-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/messaging-service
+            images:
+              - image: ghcr.io/whispr-messenger/messaging-service/messaging-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/notification-service
+            images:
+              - image: ghcr.io/whispr-messenger/notification-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/scheduling-service
+            images:
+              - image: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/staging/user-service
+            images:
+              - image: ghcr.io/whispr-messenger/user-service/user-service
         - uses: git-commit
           config:
             path: ./deploy
             messageTemplate: |
-              chore(staging): promote auth-service to {{ .imageTag }}
+              chore(staging): promote services
         - uses: git-push
           config:
             path: ./deploy
@@ -39,6 +64,21 @@ spec:
           config:
             apps:
               - name: auth-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: media-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: messaging-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: notification-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: scheduling-service-staging
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: user-service-staging
                 sources:
                   - repoURL: https://github.com/whispr-messenger/deploy.git
 ---
@@ -71,11 +111,36 @@ spec:
             path: ./deploy/overlays/production/auth-service
             images:
               - image: ghcr.io/whispr-messenger/auth-service/auth-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/media-service
+            images:
+              - image: ghcr.io/whispr-messenger/media-service/media-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/messaging-service
+            images:
+              - image: ghcr.io/whispr-messenger/messaging-service/messaging-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/notification-service
+            images:
+              - image: ghcr.io/whispr-messenger/notification-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/scheduling-service
+            images:
+              - image: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
+        - uses: kustomize-set-image
+          config:
+            path: ./deploy/overlays/production/user-service
+            images:
+              - image: ghcr.io/whispr-messenger/user-service/user-service
         - uses: git-commit
           config:
             path: ./deploy
             messageTemplate: |
-              chore(production): promote auth-service to {{ .imageTag }}
+              chore(production): promote services
         - uses: git-push
           config:
             path: ./deploy
@@ -83,5 +148,20 @@ spec:
           config:
             apps:
               - name: auth-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: media-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: messaging-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: notification-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: scheduling-service-production
+                sources:
+                  - repoURL: https://github.com/whispr-messenger/deploy.git
+              - name: user-service-production
                 sources:
                   - repoURL: https://github.com/whispr-messenger/deploy.git

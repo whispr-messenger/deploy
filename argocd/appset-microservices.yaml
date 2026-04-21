@@ -21,6 +21,11 @@ spec:
           - list:
               elements:
                 - service: auth-service
+                - service: media-service
+                - service: messaging-service
+                - service: notification-service
+                - service: scheduling-service
+                - service: user-service
   template:
     metadata:
       name: "{{ .service }}-{{ .env }}"

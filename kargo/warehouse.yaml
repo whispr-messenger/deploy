@@ -13,3 +13,28 @@ spec:
         semverConstraint: ""
         discoveryPolicy: SemVer
         allowTags: "^sha-.+$"
+    - image:
+        repoURL: ghcr.io/whispr-messenger/media-service/media-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
+    - image:
+        repoURL: ghcr.io/whispr-messenger/messaging-service/messaging-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
+    - image:
+        repoURL: ghcr.io/whispr-messenger/notification-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
+    - image:
+        repoURL: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
+    - image:
+        repoURL: ghcr.io/whispr-messenger/user-service/user-service
+        semverConstraint: ""
+        discoveryPolicy: SemVer
+        allowTags: "^sha-.+$"
