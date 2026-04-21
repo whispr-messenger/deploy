@@ -10,4 +10,4 @@ labels:
   includeSelectors: false
 images:
 - name: ghcr.io/whispr-messenger/messaging-service/messaging-service
-  newTag: sha-0156640
+  newTag: sha-fbeb709
