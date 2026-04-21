@@ -11,7 +11,7 @@ spec:
     - image:
         repoURL: ghcr.io/whispr-messenger/notification-service
         imageSelectionStrategy: NewestBuild
-        allowTags: "^sha-.+$"
+        allowTags: "^sha-[a-f0-9]{7}$"
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
