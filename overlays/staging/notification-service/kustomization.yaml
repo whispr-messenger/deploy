@@ -8,7 +8,6 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
-
 patches:
 - target:
     group: secrets.hashicorp.com
@@ -19,7 +18,6 @@ patches:
     - op: replace
       path: /spec/kubernetes/role
       value: notification-service-staging
-
 images:
 - name: ghcr.io/whispr-messenger/notification-service
-  newTag: sha-aaa11b4
+  newTag: sha-c4b0322
