@@ -1,17 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 namespace: whispr-staging
-
 resources:
-  - ../../../base/auth-service
-  - configmap.yaml
-
+- ../../../base/auth-service
+- configmap.yaml
 labels:
-  - pairs:
-      environment: staging
-    includeSelectors: false
-
+- pairs:
+    environment: staging
+  includeSelectors: false
 images:
-  - name: ghcr.io/whispr-messenger/auth-service/auth-service
-    newTag: sha-38acfc0
+- name: ghcr.io/whispr-messenger/auth-service/auth-service
+  newTag: sha-38acfc0
