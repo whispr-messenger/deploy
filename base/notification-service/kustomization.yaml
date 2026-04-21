@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - service-account.yaml
+  - vault-auth.yaml
+  - vault-dynamic-secret.yaml
+  - vault-public-jwt.yaml
+  - deployment.yaml
+  - service.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: notification-service
+      app.kubernetes.io/part-of: whispr
+    includeSelectors: false
