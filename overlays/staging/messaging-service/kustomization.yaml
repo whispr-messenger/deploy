@@ -27,6 +27,15 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/role_messaging_service_staging
+- target:
+    group: secrets.hashicorp.com
+    version: v1beta1
+    kind: VaultDynamicSecret
+    name: messaging-service-redis-creds
+  patch: |
+    - op: replace
+      path: /spec/path
+      value: creds/redis_role_messaging_service_staging
 
 images:
 - name: ghcr.io/whispr-messenger/messaging-service/messaging-service
