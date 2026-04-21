@@ -1,0 +1,105 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: messaging-service-migration
+  labels:
+    app: messaging-service
+    component: migration
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  backoffLimit: 3
+  ttlSecondsAfterFinished: 600
+  template:
+    metadata:
+      labels:
+        app: messaging-service
+        component: migration
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      serviceAccountName: messaging-service-sa
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: ghcr.io/whispr-messenger/messaging-service/messaging-service
+          command: ["/app/bin/whispr_messaging"]
+          args:
+            - eval
+            - WhisprMessaging.Release.migrate()
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: messaging-service-db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: messaging-service-db-secret
+                  key: password
+            - name: DATABASE_URL
+              value: "postgresql://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: messaging-service-public-jwt-secret
+                  key: JWT_PUBLIC_KEY
+            - name: REDIS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: messaging-service-redis-secret
+                  key: username
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: messaging-service-redis-secret
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: messaging-service-config
+            - secretRef:
+                name: messaging-service-db-secret
+            - secretRef:
+                name: messaging-service-redis-secret
+            - secretRef:
+                name: messaging-service-redis-sentinel-secret
+            - secretRef:
+                name: messaging-service-public-jwt-secret
+            - secretRef:
+                name: messaging-service-app-secret
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "128Mi"
+              ephemeral-storage: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
+              ephemeral-storage: "256Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: priv-static
+              mountPath: /app/lib/whispr_messaging-1.0.0/priv/static
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: priv-static
+          emptyDir: {}
