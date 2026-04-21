@@ -41,6 +41,7 @@ spec:
             path: ./deploy/overlays/staging/auth-service
             images:
               - image: ghcr.io/whispr-messenger/auth-service/auth-service
+                tag: ${{ imageFrom("ghcr.io/whispr-messenger/auth-service/auth-service").Tag }}
         - uses: git-commit
           config:
             path: ./deploy
@@ -85,6 +86,7 @@ spec:
             path: ./deploy/overlays/production/auth-service
             images:
               - image: ghcr.io/whispr-messenger/auth-service/auth-service
+                tag: ${{ imageFrom("ghcr.io/whispr-messenger/auth-service/auth-service").Tag }}
         - uses: git-commit
           config:
             path: ./deploy

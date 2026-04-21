@@ -41,6 +41,7 @@ spec:
             path: ./deploy/overlays/staging/notification-service
             images:
               - image: ghcr.io/whispr-messenger/notification-service
+                tag: ${{ imageFrom("ghcr.io/whispr-messenger/notification-service").Tag }}
         - uses: git-commit
           config:
             path: ./deploy
@@ -85,6 +86,7 @@ spec:
             path: ./deploy/overlays/production/notification-service
             images:
               - image: ghcr.io/whispr-messenger/notification-service
+                tag: ${{ imageFrom("ghcr.io/whispr-messenger/notification-service").Tag }}
         - uses: git-commit
           config:
             path: ./deploy
