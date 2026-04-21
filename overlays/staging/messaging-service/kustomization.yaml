@@ -8,6 +8,17 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
+patches:
+- target:
+    group: secrets.hashicorp.com
+    version: v1beta1
+    kind: VaultAuth
+    name: messaging-service-vault-auth
+  patch: |
+    - op: replace
+      path: /spec/kubernetes/role
+      value: messaging-service-staging
+
 images:
 - name: ghcr.io/whispr-messenger/messaging-service/messaging-service
   newTag: sha-9e08fa4

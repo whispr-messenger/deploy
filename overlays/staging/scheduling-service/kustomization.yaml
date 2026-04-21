@@ -8,6 +8,18 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
+
+patches:
+- target:
+    group: secrets.hashicorp.com
+    version: v1beta1
+    kind: VaultAuth
+    name: scheduling-service-vault-auth
+  patch: |
+    - op: replace
+      path: /spec/kubernetes/role
+      value: scheduling-service-staging
+
 images:
 - name: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
   newTag: sha-716600c
