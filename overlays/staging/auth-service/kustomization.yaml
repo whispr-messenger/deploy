@@ -8,7 +8,6 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
-
 patches:
 - target:
     group: secrets.hashicorp.com
@@ -37,7 +36,6 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/redis_role_auth_service_staging
-
 images:
 - name: ghcr.io/whispr-messenger/auth-service/auth-service
-  newTag: sha-38acfc0
+  newTag: sha-242ffce
