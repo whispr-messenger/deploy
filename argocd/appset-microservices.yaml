@@ -30,6 +30,8 @@ spec:
     metadata:
       name: "{{ .service }}-{{ .env }}"
       namespace: argocd
+      annotations:
+        kargo.akuity.io/authorized-stage: "whispr:{{ .service }}-{{ .env }}"
     spec:
       project: default
       source:
