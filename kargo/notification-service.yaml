@@ -45,7 +45,7 @@ spec:
         - uses: git-commit
           config:
             path: ./deploy
-            messageTemplate: |
+            message: |
               chore(staging): promote notification-service
         - uses: git-push
           config:
@@ -90,7 +90,7 @@ spec:
         - uses: git-commit
           config:
             path: ./deploy
-            messageTemplate: |
+            message: |
               chore(production): promote notification-service
         - uses: git-push
           config:
