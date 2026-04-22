@@ -8,7 +8,6 @@ labels:
 - pairs:
     environment: staging
   includeSelectors: false
-
 patches:
 - target:
     group: secrets.hashicorp.com
@@ -37,7 +36,6 @@ patches:
     - op: replace
       path: /spec/path
       value: creds/redis_role_scheduling_service_staging
-
 images:
 - name: ghcr.io/whispr-messenger/scheduling-service/scheduling-service
-  newTag: sha-716600c
+  newTag: sha-78a8fd3
