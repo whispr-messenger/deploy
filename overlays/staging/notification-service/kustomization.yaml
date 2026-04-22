@@ -38,4 +38,4 @@ patches:
       value: creds/redis_role_notification_service_staging
 images:
 - name: ghcr.io/whispr-messenger/notification-service
-  newTag: sha-614f36b
+  newTag: sha-745af73
