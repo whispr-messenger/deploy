@@ -38,4 +38,4 @@ patches:
       value: creds/redis_role_user_service_staging
 images:
 - name: ghcr.io/whispr-messenger/user-service/user-service
-  newTag: sha-e44007f
+  newTag: sha-77b748b
