@@ -38,4 +38,4 @@ patches:
       value: creds/redis_role_media_service_staging
 images:
 - name: ghcr.io/whispr-messenger/media-service/media-service
-  newTag: sha-faa87df
+  newTag: sha-9be83aa
